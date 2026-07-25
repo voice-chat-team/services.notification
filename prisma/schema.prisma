@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "./generated"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum NotificationTypes {
+  INVITE_USER_TO_GUILD
+}
+
+model Notification {
+  id String @id @default(uuid())
+
+  senderId String @map("sender_id")
+  receiverId String  @map("receiver_id")
+
+  notificationPayload String @map("notification_payload")
+  notificationType NotificationTypes @map("notification_type")
+  isRead Boolean @default(false) @map("is_read")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("notifications")
+}
