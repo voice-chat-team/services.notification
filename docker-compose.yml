@@ -1,0 +1,13 @@
+services:
+  invitation-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tankistpro512/voice-chat-notification-service:latest
+    networks:
+      - voice-chat-network
+    restart: unless-stopped
+
+networks:
+  voice-chat-network:
+    external: true
