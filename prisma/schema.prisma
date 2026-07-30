@@ -23,7 +23,8 @@ model Notification {
   senderId String @map("sender_id")
   receiverId String  @map("receiver_id")
 
-  notificationPayload String @map("notification_payload")
+  channel String  @map("channel")
+  notificationPayload Json @map("notification_payload")
   notificationType NotificationTypes @map("notification_type")
   isRead Boolean @default(false) @map("is_read")
 

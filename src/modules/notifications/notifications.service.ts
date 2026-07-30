@@ -26,21 +26,23 @@ export class NotificationsService {
         data: {
           receiverId: request.receiverId,
           senderId: request.senderId,
-          notificationPayload: request.notificationPayload,
+          notificationPayload: request.notificationPayload!,
           notificationType: NotificationTypes.INVITE_USER_TO_GUILD,
+          channel: request.channel,
         },
       });
 
-      await this.centrifugoClient.publish(
-        `personal:#${notification.receiverId}`,
-        {
-          type: NotificationTypes.INVITE_USER_TO_GUILD,
-          payload: notification,
-        },
-      );
+      await this.centrifugoClient.publish(request.channel, {
+        type: NotificationTypes.INVITE_USER_TO_GUILD,
+        payload: notification,
+      });
 
       return {
         ...notification,
+        notificationPayload: notification.notificationPayload as Record<
+          string,
+          any
+        >,
         createdAt: notification.createdAt.toISOString(),
       };
     } catch (error) {
@@ -67,6 +69,7 @@ export class NotificationsService {
 
       return notifications.map((n) => ({
         ...n,
+        notificationPayload: n.notificationPayload as Record<string, any>,
         createdAt: n.createdAt.toISOString(),
       }));
     } catch (error) {

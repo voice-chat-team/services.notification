@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: tankistpro512/voice-chat-notification-service:latest
+    image: ghcr.io/voice-chat-team/voice-chat-notification-service:latest
     networks:
       - voice-chat-network
     restart: unless-stopped
