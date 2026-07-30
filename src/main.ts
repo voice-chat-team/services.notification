@@ -12,6 +12,15 @@ async function bootstrap() {
       package: 'notification.v1',
       protoPath: PROTO_PATHS.NOTIFICATION,
       url: '0.0.0.0:5056',
+      loader: {
+        keepCase: true,
+        longs: String,
+        enums: String,
+        defaults: true,
+        oneofs: true,
+        objects: true,
+        json: true,
+      },
     },
   });
 
