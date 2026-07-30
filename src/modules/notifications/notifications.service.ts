@@ -22,14 +22,17 @@ export class NotificationsService {
   async sendNotification(
     request: SendNotificationRequest,
   ): Promise<Notification> {
-    console.log(request.notificationPayload);
+    console.log(
+      request.notificationPayload,
+      JSON.parse(request.notificationPayload),
+    );
 
     try {
       const notification = await this.prismaClient.notification.create({
         data: {
           receiverId: request.receiverId,
           senderId: request.senderId,
-          notificationPayload: request.notificationPayload ?? {},
+          notificationPayload: JSON.parse(request.notificationPayload) ?? {},
           notificationType: NotificationTypes.INVITE_USER_TO_GUILD,
           channel: request.channel,
         },
