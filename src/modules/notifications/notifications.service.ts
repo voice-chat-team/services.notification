@@ -61,7 +61,6 @@ export class NotificationsService {
     request: GetNotificationsRequest,
   ): Promise<Notification[]> {
     const { receiverId, senderId } = request;
-
     try {
       const notifications = await this.prismaClient.notification.findMany({
         where: {
