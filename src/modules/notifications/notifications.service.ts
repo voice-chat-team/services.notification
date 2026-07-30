@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 import { RpcStatus } from '@voice-chat/common';
@@ -26,7 +27,9 @@ export class NotificationsService {
         data: {
           receiverId: request.receiverId,
           senderId: request.senderId,
-          notificationPayload: request.notificationPayload!,
+          notificationPayload: JSON.parse(
+            JSON.stringify(request.notificationPayload),
+          ),
           notificationType: NotificationTypes.INVITE_USER_TO_GUILD,
           channel: request.channel,
         },
