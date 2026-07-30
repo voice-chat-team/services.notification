@@ -13,12 +13,11 @@ async function bootstrap() {
       protoPath: PROTO_PATHS.NOTIFICATION,
       url: '0.0.0.0:5056',
       loader: {
-        keepCase: true,
         longs: String,
         enums: String,
         defaults: true,
         oneofs: true,
-        json: true,
+        objects: true,
       },
     },
   });
