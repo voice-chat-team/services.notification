@@ -18,7 +18,6 @@ async function bootstrap() {
         enums: String,
         defaults: true,
         oneofs: true,
-        objects: true,
         json: true,
       },
     },
