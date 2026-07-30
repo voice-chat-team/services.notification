@@ -22,6 +22,10 @@ export class NotificationsService {
   async sendNotification(
     request: SendNotificationRequest,
   ): Promise<Notification> {
+    console.log(
+      request.notificationPayload,
+      JSON.parse(JSON.stringify(request.notificationPayload)),
+    );
     try {
       const notification = await this.prismaClient.notification.create({
         data: {
