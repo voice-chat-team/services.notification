@@ -22,17 +22,14 @@ export class NotificationsService {
   async sendNotification(
     request: SendNotificationRequest,
   ): Promise<Notification> {
-    console.log(
-      request.notificationPayload,
-      JSON.parse(request.notificationPayload),
-    );
-
     try {
       const notification = await this.prismaClient.notification.create({
         data: {
           receiverId: request.receiverId,
           senderId: request.senderId,
-          notificationPayload: JSON.parse(request.notificationPayload) ?? {},
+          notificationPayload: request.notificationPayload.length
+            ? JSON.parse(request.notificationPayload)
+            : {},
           notificationType: NotificationTypes.INVITE_USER_TO_GUILD,
           channel: request.channel,
         },
@@ -45,10 +42,7 @@ export class NotificationsService {
 
       return {
         ...notification,
-        notificationPayload: notification.notificationPayload as Record<
-          string,
-          any
-        >,
+        notificationPayload: JSON.stringify(notification.notificationPayload),
         createdAt: notification.createdAt.toISOString(),
       };
     } catch (error) {
@@ -73,8 +67,11 @@ export class NotificationsService {
       });
 
       return notifications.map((n) => ({
-        ...n,
-        notificationPayload: n.notificationPayload as Record<string, any>,
+        id: n.id,
+        isRead: n.isRead,
+        senderId: n.senderId,
+        receiverId: n.receiverId,
+        notificationPayload: JSON.stringify(n.notificationPayload),
         createdAt: n.createdAt.toISOString(),
       }));
     } catch (error) {

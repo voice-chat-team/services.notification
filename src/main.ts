@@ -15,9 +15,6 @@ async function bootstrap() {
       loader: {
         longs: String,
         enums: String,
-        defaults: true,
-        oneofs: true,
-        objects: true,
       },
     },
   });
