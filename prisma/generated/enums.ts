@@ -9,8 +9,7 @@
 * 🟢 You can import this file directly.
 */
 
-export const NotificationTypes = {
-  INVITE_USER_TO_GUILD: 'INVITE_USER_TO_GUILD'
-} as const
 
-export type NotificationTypes = (typeof NotificationTypes)[keyof typeof NotificationTypes]
+
+// This file is empty because there are no enums in the schema.
+export {}

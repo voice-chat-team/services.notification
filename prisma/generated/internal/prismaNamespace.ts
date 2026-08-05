@@ -611,20 +611,6 @@ export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
 
 
 /**
- * Reference to a field of type 'NotificationTypes'
- */
-export type EnumNotificationTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationTypes'>
-    
-
-
-/**
- * Reference to a field of type 'NotificationTypes[]'
- */
-export type ListEnumNotificationTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationTypes[]'>
-    
-
-
-/**
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>

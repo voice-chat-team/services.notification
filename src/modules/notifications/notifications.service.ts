@@ -8,7 +8,6 @@ import type {
   ReadNotificationRequest,
   SendNotificationRequest,
 } from '@voice-chat/contracts/gen/notification';
-import { NotificationTypes } from 'prisma/generated/enums';
 import { CentrifugoService } from 'src/infrastructure/centrifugo/centrifugo.service';
 import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
 
@@ -27,16 +26,16 @@ export class NotificationsService {
         data: {
           receiverId: request.receiverId,
           senderId: request.senderId,
-          notificationPayload: request.notificationPayload.length
+          notificationPayload: request.notificationPayload
             ? JSON.parse(request.notificationPayload)
             : {},
-          notificationType: NotificationTypes.INVITE_USER_TO_GUILD,
+          notificationType: request.notificationType as unknown as string,
           channel: request.channel,
         },
       });
 
       await this.centrifugoClient.publish(request.channel, {
-        type: NotificationTypes.INVITE_USER_TO_GUILD,
+        type: request.notificationType,
         payload: notification,
       });
 
@@ -44,6 +43,8 @@ export class NotificationsService {
         ...notification,
         notificationPayload: JSON.stringify(notification.notificationPayload),
         createdAt: notification.createdAt.toISOString(),
+        notificationType:
+          notification.notificationType as unknown as Notification['notificationType'],
       };
     } catch (error) {
       console.error(error);
@@ -71,6 +72,9 @@ export class NotificationsService {
         isRead: n.isRead,
         senderId: n.senderId,
         receiverId: n.receiverId,
+        notificationType:
+          n.notificationType as unknown as Notification['notificationType'],
+        channel: n.channel,
         notificationPayload: JSON.stringify(n.notificationPayload),
         createdAt: n.createdAt.toISOString(),
       }));
