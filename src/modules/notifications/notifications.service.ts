@@ -23,7 +23,6 @@ export class NotificationsService {
   ): Promise<Notification> {
     try {
       console.log(request);
-
       const notification = await this.prismaClient.notification.create({
         data: {
           receiverId: request.receiverId,
