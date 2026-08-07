@@ -22,7 +22,6 @@ export class NotificationsService {
     request: SendNotificationRequest,
   ): Promise<Notification> {
     try {
-      console.log(request);
       const notification = await this.prismaClient.notification.create({
         data: {
           receiverId: request.receiverId,
@@ -90,7 +89,7 @@ export class NotificationsService {
 
   async readNotification(request: ReadNotificationRequest): Promise<boolean> {
     const { notificationIds } = request;
-    console.log(request);
+
     if (!notificationIds || !notificationIds.length) return false;
 
     try {
