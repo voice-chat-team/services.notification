@@ -2,7 +2,6 @@
 import { Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 import { RpcStatus } from '@voice-chat/common';
-import { NotificationType } from '@voice-chat/contracts/gen/notification';
 import type {
   GetNotificationsRequest,
   Notification,
@@ -37,7 +36,7 @@ export class NotificationsService {
       });
 
       await this.centrifugoClient.publish(request.channel, {
-        type: request.notificationType,
+        type: notification.notificationType as unknown as Notification['notificationType'],
         payload: notification,
       });
 
@@ -130,7 +129,7 @@ export class NotificationsService {
       });
 
       await this.centrifugoClient.publish(notification.channel, {
-        type: NotificationType.UPDATE_NOTIFICATION,
+        type: notification.notificationType as unknown as Notification['notificationType'],
         payload: notification,
       });
 
