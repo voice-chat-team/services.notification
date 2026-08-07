@@ -7,6 +7,7 @@ import type {
   Notification,
   ReadNotificationRequest,
   SendNotificationRequest,
+  UpdateNotificationPayloadRequest,
 } from '@voice-chat/contracts/gen/notification';
 import { CentrifugoService } from 'src/infrastructure/centrifugo/centrifugo.service';
 import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
@@ -110,6 +111,35 @@ export class NotificationsService {
       throw new RpcException({
         code: RpcStatus.INTERNAL,
         details: 'Не удалось прочитать уведомление',
+      });
+    }
+  }
+
+  async updateNotificationPayload(request: UpdateNotificationPayloadRequest) {
+    try {
+      const notification = await this.prismaClient.notification.update({
+        where: {
+          id: request.notificationId,
+        },
+        data: {
+          notificationPayload: request.notificationPayload
+            ? JSON.parse(request.notificationPayload)
+            : {},
+        },
+      });
+
+      return {
+        ...notification,
+        notificationPayload: JSON.stringify(notification.notificationPayload),
+        createdAt: notification.createdAt.toISOString(),
+        notificationType:
+          notification.notificationType as unknown as Notification['notificationType'],
+      };
+    } catch (error) {
+      console.log(error);
+      throw new RpcException({
+        code: RpcStatus.INTERNAL,
+        details: 'Ошибка при обновлении уведомления',
       });
     }
   }

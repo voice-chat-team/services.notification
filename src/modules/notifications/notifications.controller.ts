@@ -8,6 +8,8 @@ import type {
   ReadNotificationResponse,
   SendNotificationRequest,
   SendNotificationResponse,
+  UpdateNotificationPayloadRequest,
+  UpdateNotificationPayloadResponse,
 } from '@voice-chat/contracts/gen/notification';
 
 @Controller()
@@ -41,5 +43,15 @@ export class NotificationsController {
     const status = await this.notificationsService.readNotification(request);
 
     return { status };
+  }
+
+  @GrpcMethod('NotificationService', 'UpdateNotificationPayload')
+  async updateNotificationPayload(
+    request: UpdateNotificationPayloadRequest,
+  ): Promise<UpdateNotificationPayloadResponse> {
+    const notification =
+      await this.notificationsService.updateNotificationPayload(request);
+
+    return { notification };
   }
 }
