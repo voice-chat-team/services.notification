@@ -2,12 +2,13 @@
 import { Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 import { RpcStatus } from '@voice-chat/common';
-import type {
-  GetNotificationsRequest,
-  Notification,
-  ReadNotificationRequest,
-  SendNotificationRequest,
-  UpdateNotificationPayloadRequest,
+import { NotificationType } from '@voice-chat/contracts';
+import {
+  type GetNotificationsRequest,
+  type Notification,
+  type ReadNotificationRequest,
+  type SendNotificationRequest,
+  type UpdateNotificationPayloadRequest,
 } from '@voice-chat/contracts/gen/notification';
 import { CentrifugoService } from 'src/infrastructure/centrifugo/centrifugo.service';
 import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
@@ -129,7 +130,7 @@ export class NotificationsService {
       });
 
       await this.centrifugoClient.publish(notification.channel, {
-        type: notification.notificationType as unknown as Notification['notificationType'],
+        type: Object.keys(NotificationType.UPDATE_NOTIFICATION),
         payload: notification,
       });
 
