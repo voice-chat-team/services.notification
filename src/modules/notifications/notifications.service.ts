@@ -126,6 +126,7 @@ export class NotificationsService {
           notificationPayload: request.notificationPayload
             ? JSON.parse(request.notificationPayload)
             : {},
+          isRead: true,
         },
       });
 
