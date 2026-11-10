@@ -13,6 +13,36 @@ export class CentrifugoService {
       configService.getOrThrow<string>('CENTRIFUGO_API_KEY');
   }
 
+  async publishBatch(
+    publications: readonly { channel: string; data: unknown }[],
+  ): Promise<void> {
+    if (publications.length === 0) return;
+
+    const { data } = await axios.post<{
+      replies?: {
+        publish?: unknown;
+        error?: { code: number; message: string };
+      }[];
+    }>(
+      this._CENTRIFUGO_URL + '/api/batch',
+      { commands: publications.map((publish) => ({ publish })) },
+      {
+        headers: {
+          Authorization: `apikey ${this._CENTRIFUGO_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        timeout: 5_000,
+      },
+    );
+
+    if (
+      data.replies?.length !== publications.length ||
+      data.replies.some((reply) => reply.error || !reply.publish)
+    ) {
+      throw new Error('Centrifugo не подтвердил обновление всех уведомлений');
+    }
+  }
+
   async publish(channel: string, data: unknown) {
     try {
       await axios.post(

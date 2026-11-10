@@ -2,6 +2,8 @@ import { Controller } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
 import { GrpcMethod } from '@nestjs/microservices';
 import type {
+  ExpireInvitationNotificationsRequest,
+  ExpireInvitationNotificationsResponse,
   GetNotificationsRequest,
   GetNotificationsResponse,
   ReadNotificationRequest,
@@ -10,7 +12,7 @@ import type {
   SendNotificationResponse,
   UpdateNotificationPayloadRequest,
   UpdateNotificationPayloadResponse,
-} from '@voice-chat/contracts/gen/notification';
+} from '@voice-chat/contracts/gen/ts/notification';
 
 @Controller()
 export class NotificationsController {
@@ -42,6 +44,15 @@ export class NotificationsController {
   ): Promise<ReadNotificationResponse> {
     const status = await this.notificationsService.readNotification(request);
 
+    return { status };
+  }
+
+  @GrpcMethod('NotificationService', 'ExpireInvitationNotifications')
+  async expireInvitationNotifications(
+    request: ExpireInvitationNotificationsRequest,
+  ): Promise<ExpireInvitationNotificationsResponse> {
+    const status =
+      await this.notificationsService.expireInvitationNotifications(request);
     return { status };
   }
 
