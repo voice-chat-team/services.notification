@@ -5,6 +5,7 @@ import { PROTO_PATHS } from '@voice-chat/contracts';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableShutdownHooks();
 
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.GRPC,

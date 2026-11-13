@@ -29,9 +29,10 @@
     "@prisma/adapter-pg": "^7.9.0",
     "@prisma/client": "^7.9.0",
     "@voice-chat/common": "^1.0.17",
-    "@voice-chat/contracts": "^1.6.0",
+    "@voice-chat/contracts": "^1.6.1",
     "axios": "^1.18.1",
     "cross-env": "^10.1.0",
+    "firebase-admin": "^14.5.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },

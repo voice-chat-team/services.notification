@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { CentrifugoModule } from './infrastructure/centrifugo/centrifugo.module';
 import { PrismaModule } from './infrastructure/prisma/prisma.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
+import { PushDevicesModule } from './modules/push-devices/push-devices.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
     PrismaModule,
     CentrifugoModule,
     NotificationsModule,
+    PushDevicesModule,
   ],
   controllers: [],
   providers: [],

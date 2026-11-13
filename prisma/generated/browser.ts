@@ -22,3 +22,8 @@ export * from './enums.js';
  * 
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model PushDevice
+ *
+ */
+export type PushDevice = Prisma.PushDeviceModel
