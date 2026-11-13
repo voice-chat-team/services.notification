@@ -398,7 +398,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   Notification: 'Notification',
-  PushDevice: 'PushDevice'
+  PushDevice: 'PushDevice',
+  MessagePushJob: 'MessagePushJob'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -414,7 +415,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "notification" | "pushDevice"
+    modelProps: "notification" | "pushDevice" | "messagePushJob"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -566,6 +567,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MessagePushJob: {
+      payload: Prisma.$MessagePushJobPayload<ExtArgs>
+      fields: Prisma.MessagePushJobFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MessagePushJobFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagePushJobPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MessagePushJobFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagePushJobPayload>
+        }
+        findFirst: {
+          args: Prisma.MessagePushJobFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagePushJobPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MessagePushJobFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagePushJobPayload>
+        }
+        findMany: {
+          args: Prisma.MessagePushJobFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagePushJobPayload>[]
+        }
+        create: {
+          args: Prisma.MessagePushJobCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagePushJobPayload>
+        }
+        createMany: {
+          args: Prisma.MessagePushJobCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MessagePushJobCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagePushJobPayload>[]
+        }
+        delete: {
+          args: Prisma.MessagePushJobDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagePushJobPayload>
+        }
+        update: {
+          args: Prisma.MessagePushJobUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagePushJobPayload>
+        }
+        deleteMany: {
+          args: Prisma.MessagePushJobDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MessagePushJobUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MessagePushJobUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagePushJobPayload>[]
+        }
+        upsert: {
+          args: Prisma.MessagePushJobUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagePushJobPayload>
+        }
+        aggregate: {
+          args: Prisma.MessagePushJobAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMessagePushJob>
+        }
+        groupBy: {
+          args: Prisma.MessagePushJobGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MessagePushJobGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MessagePushJobCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MessagePushJobCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -631,6 +706,27 @@ export const PushDeviceScalarFieldEnum = {
 export type PushDeviceScalarFieldEnum = (typeof PushDeviceScalarFieldEnum)[keyof typeof PushDeviceScalarFieldEnum]
 
 
+export const MessagePushJobScalarFieldEnum = {
+  messageId: 'messageId',
+  guildId: 'guildId',
+  channelId: 'channelId',
+  senderId: 'senderId',
+  senderName: 'senderName',
+  channelName: 'channelName',
+  body: 'body',
+  expiresAt: 'expiresAt',
+  processedDeviceIds: 'processedDeviceIds',
+  attempts: 'attempts',
+  nextAttemptAt: 'nextAttemptAt',
+  leaseId: 'leaseId',
+  completedAt: 'completedAt',
+  lastError: 'lastError',
+  createdAt: 'createdAt'
+} as const
+
+export type MessagePushJobScalarFieldEnum = (typeof MessagePushJobScalarFieldEnum)[keyof typeof MessagePushJobScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -661,6 +757,14 @@ export const JsonNullValueFilter = {
 } as const
 
 export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 
@@ -730,6 +834,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+
 
 /**
  * Batch Payload for updateMany & deleteMany & createMany
@@ -884,6 +1002,7 @@ export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaC
 export type GlobalOmitConfig = {
   notification?: Prisma.NotificationOmit
   pushDevice?: Prisma.PushDeviceOmit
+  messagePushJob?: Prisma.MessagePushJobOmit
 }
 
 /* Types for Logging */

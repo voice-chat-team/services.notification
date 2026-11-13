@@ -10,4 +10,5 @@
  */
 export type * from './models/Notification.js'
 export type * from './models/PushDevice.js'
+export type * from './models/MessagePushJob.js'
 export type * from './commonInputTypes.js'

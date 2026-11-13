@@ -41,3 +41,25 @@ model PushDevice {
   @@index([userId])
   @@map("push_devices")
 }
+
+model MessagePushJob {
+  messageId          String    @id @map("message_id")
+  guildId            String    @map("guild_id")
+  channelId          String    @map("channel_id")
+  senderId           String    @map("sender_id")
+  senderName         String    @map("sender_name")
+  channelName        String    @map("channel_name")
+  body               String
+  expiresAt          DateTime  @map("expires_at")
+  processedDeviceIds String[]  @default([]) @map("processed_device_ids")
+  attempts           Int       @default(0)
+  nextAttemptAt      DateTime  @default(now()) @map("next_attempt_at")
+  leaseId            String?   @map("lease_id")
+  completedAt        DateTime? @map("completed_at")
+  lastError          String?   @map("last_error")
+  createdAt          DateTime  @default(now()) @map("created_at")
+
+  @@index([completedAt, nextAttemptAt])
+  @@index([expiresAt])
+  @@map("message_push_jobs")
+}

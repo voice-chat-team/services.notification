@@ -52,7 +52,8 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Notification: 'Notification',
-  PushDevice: 'PushDevice'
+  PushDevice: 'PushDevice',
+  MessagePushJob: 'MessagePushJob'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -97,6 +98,27 @@ export const PushDeviceScalarFieldEnum = {
 export type PushDeviceScalarFieldEnum = (typeof PushDeviceScalarFieldEnum)[keyof typeof PushDeviceScalarFieldEnum]
 
 
+export const MessagePushJobScalarFieldEnum = {
+  messageId: 'messageId',
+  guildId: 'guildId',
+  channelId: 'channelId',
+  senderId: 'senderId',
+  senderName: 'senderName',
+  channelName: 'channelName',
+  body: 'body',
+  expiresAt: 'expiresAt',
+  processedDeviceIds: 'processedDeviceIds',
+  attempts: 'attempts',
+  nextAttemptAt: 'nextAttemptAt',
+  leaseId: 'leaseId',
+  completedAt: 'completedAt',
+  lastError: 'lastError',
+  createdAt: 'createdAt'
+} as const
+
+export type MessagePushJobScalarFieldEnum = (typeof MessagePushJobScalarFieldEnum)[keyof typeof MessagePushJobScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -127,4 +149,12 @@ export const JsonNullValueFilter = {
 } as const
 
 export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

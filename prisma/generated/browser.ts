@@ -27,3 +27,8 @@ export type Notification = Prisma.NotificationModel
  *
  */
 export type PushDevice = Prisma.PushDeviceModel
+/**
+ * Model MessagePushJob
+ *
+ */
+export type MessagePushJob = Prisma.MessagePushJobModel
